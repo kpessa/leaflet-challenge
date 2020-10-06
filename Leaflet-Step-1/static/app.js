@@ -10,11 +10,29 @@ let baseMaps = {
     Dark: dark
 }
 
-// --------------------------------------------
 
-d3.json("https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_hour.geojson").then(data => {
+d3.json("https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/2.5_week.geojson").then(data => {
 
     var earthquakes = L.geoJSON(data, {
+        pointToLayer: function (feature, latlng) {
+            
+            var color = 'grey';
+            switch (true) {
+                case feature.properties.mag > 5: color = 'red'; break;
+                case feature.properties.mag > 4: color = 'orange'; break;
+                case feature.properties.mag > 3: color = 'yellow'; break;
+                case feature.properties.mag > 2: color = 'lightgrey'; break;
+            }
+            
+            return L.circleMarker(latlng, {
+                radius: Math.pow(feature.properties.mag,2),
+                fillColor: color,
+                color: color,
+                weight: 1,
+                opacity: 1,
+                fillOpacity: 0.4
+            });
+        },
         onEachFeature: (feature, layer) => {
             let date = new Date(feature.properties.time)
             let date_formatted = date.toLocaleString()
@@ -35,7 +53,7 @@ d3.json("https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_hour.geoj
               </tr>
               <tr>
                 <td style="text-align:right; font-weight:bold;">Location:</td>
-                <td>${feature.properties.place}</td>
+                <td>${capitalize(feature.properties.place)}</td>
               </tr>
             </table>
             `)
