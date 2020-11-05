@@ -1,3 +1,17 @@
 #mapid {
   height: 1080px;
 }
+.legend {
+  line-height: 18px;
+  color: #555;
+  background: white;
+  padding: 10px;
+}
+
+.legend i {
+  width: 18px;
+  height: 18px;
+  float: left;
+  margin-right: 8px;
+  opacity: 0.7;
+}
