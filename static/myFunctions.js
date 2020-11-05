@@ -1,3 +1,23 @@
+
+const getColor = (num) => {
+  switch (true) {
+    case num > 5:
+      return "#d73027";
+    case num > 4:
+      return "#fc8d59";
+    case num > 3:
+      return "#fee08b";
+    case num > 2:
+      return "#d9ef8b";
+    case num > 1:
+      return "#91cf60";
+    case num > 0:
+      return "#1a9850";
+    default:
+      return "grey";
+  }
+};
+
 // Layer Generator
 const makeLayer = id => {
   return L.tileLayer ("https://api.mapbox.com/styles/v1/mapbox/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}", {
