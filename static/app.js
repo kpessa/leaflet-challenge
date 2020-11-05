@@ -36,13 +36,6 @@ d3.json("https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/2.5_week.geoj
         onEachFeature: (feature, layer) => {
             let date = new Date(feature.properties.time)
             let date_formatted = date.toLocaleString()
-
-            L.circle([feature.geometry.coordinates[0],
-                feature.geometry.coordinates[1]], {
-                    fillOpacity:0.75,
-                    color: "red",
-                    radius: feature.properties.mag * 10
-                })
             
             layer.bindPopup(`<h3 style="text-align:center;">M ${feature.properties.mag.toFixed(1)} ${capitalize(feature.properties.type)}</h3>
             <hr>
