@@ -98,7 +98,7 @@ d3.json(
             `);
     },
   });
-  var overlayMaps = { Earthquakes: earthquakes };
+  
 
   var legend = L.control({ position: "bottomright" });
 
@@ -121,7 +121,30 @@ d3.json(
 
   legend.addTo(mymap);
 
-  L.control.layers(baseMaps, overlayMaps).addTo(mymap);
+  
+
+  
+
+  d3.json(
+    "https://raw.githubusercontent.com/fraxen/tectonicplates/master/GeoJSON/PB2002_boundaries.json").then(
+    (geoJSON) => {
+
+    
+      var geoLayer = L.geoJSON(geoJSON, {
+        style: {
+          'color': 'orange'
+        }
+      }).addTo(mymap);
+
+    var overlayMaps = { 
+      Earthquakes: earthquakes,
+      Plates: geoLayer
+    };
+  
+    L.control.layers(baseMaps, overlayMaps).addTo(mymap);
+    });
+  
+  
 });
 
 
